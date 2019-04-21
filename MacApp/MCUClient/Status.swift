@@ -12,8 +12,8 @@ class StatusAPI {
     let restApiKey = "B0E06E82-FA42-D6E5-FF3A-95B227096C00"
     let applicationID = "32F23448-DA51-7F84-FFC7-47289F758100"
 //    let baseURL = "https://api.backendless.com/32F23448-DA51-7F84-FFC7-47289F758100/B0E06E82-FA42-D6E5-FF3A-95B227096C00/data/events"
-//    let baseURL = "http://192.168.31.116"
-    let baseURL = "http://192.168.4.1"
+    let baseURL = "http://192.168.31.116"
+//    let baseURL = "http://192.168.4.1"
    
     func makeGetCall(completion: @escaping (String) -> Void) {
 
@@ -70,7 +70,7 @@ class StatusAPI {
                 }
                 
                 completion(isOpen)
-//                print("isOpen: \(isOpen)")
+                print("isOpen: \(isOpen)")
 
             } catch  {
                 print("error trying to convert data to JSON")

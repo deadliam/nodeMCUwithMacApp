@@ -1,58 +1,62 @@
-import machine
+
+try:
+  import usocket as socket
+except:
+  import socket
+
+import network
+import esp
 import ujson
-# import uos
-# import gc
-# gc.collect()
-# This file is executed on every boot (including wake-boot from deepsleep)
-# import esp
-# esp.osdebug(None)
-# uos.dupterm(None, 1) # disable REPL on UART(0)
-# import webrepl
-# webrepl.start()
+import gc
+from machine import Pin
 
-pins = [machine.Pin(i, machine.Pin.IN) for i in (0, 2, 4, 5, 12, 13, 14, 15)]
-
-html = """HTTP/1.1 200 OK
-
-<!DOCTYPE html>
-<html>
-    <head> <title>ESP8266 Pins</title> </head>
-    <body> <h1>ESP8266 Pins</h1>
-        <table border="1"> <tr><th>Pin</th><th>Value</th></tr> %s </table>
-    </body>
-</html>
-"""
-
-status = {
-    "isOpen": "true"
-}
-
-headers = '''HTTP/1.1 200 OK
-Content-Type: application/json
+esp.osdebug(None)
+gc.collect()
 
 
-'''
+def connect():
+    ssid = 'Xiaomi_236D'
+    password = 'ellisfromlos'
 
-response = headers + ujson.dumps(status)
+    station = network.WLAN(network.STA_IF)
 
-import socket
-addr = socket.getaddrinfo('0.0.0.0', 80)[0][-1]
+    station.active(True)
+    station.connect(ssid, password)
 
-s = socket.socket()
-s.bind(addr)
-s.listen(1)
+    while station.isconnected() == False:
+      pass
 
-print('listening on', addr)
+    print('Connection successful')
+    print(station.ifconfig())
 
-while True:
-    cl, addr = s.accept()
-    print('client connected from', addr)
-    cl_file = cl.makefile('rwb', 0)
-    # while True:
-    #     line = cl_file.readline()
-    #     if not line or line == b'\r\n':
-    #         break
-    # rows = ['<tr><td>%s</td><td>%d</td></tr>' % (str(p), p.value()) for p in pins]
-    # response = html % '\n'.join(rows)
-    cl.send(response)
-    cl.close()
+    led = Pin(2, Pin.OUT)
+
+
+def start_server():
+    headers = '''HTTP/1.1 200 OK
+    Content-Type: application/json
+
+    '''
+
+    status = {
+        "isOpen": "true"
+    }
+
+    addr = socket.getaddrinfo('0.0.0.0', 80)[0][-1]
+
+    s = socket.socket()
+    s.bind(addr)
+    s.listen(5)
+
+    print('listening on', addr)
+
+    while True:
+        cl, addr = s.accept()
+        print('client connected from', addr)
+        
+        response = headers + ujson.dumps(status)
+        cl.send(response)
+        cl.close()
+
+connect()
+start_server()

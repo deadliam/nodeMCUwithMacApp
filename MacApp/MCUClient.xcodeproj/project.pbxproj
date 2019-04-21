@@ -39,7 +39,7 @@
 		657ED11B2215D4790088FF1B = {
 			isa = PBXGroup;
 			children = (
-				657ED1262215D4790088FF1B /* TubZel */,
+				657ED1262215D4790088FF1B /* MCUClient */,
 				657ED1252215D4790088FF1B /* Products */,
 			);
 			sourceTree = "<group>";
@@ -52,7 +52,7 @@
 			name = Products;
 			sourceTree = "<group>";
 		};
-		657ED1262215D4790088FF1B /* TubZel */ = {
+		657ED1262215D4790088FF1B /* MCUClient */ = {
 			isa = PBXGroup;
 			children = (
 				657ED1272215D4790088FF1B /* AppDelegate.swift */,
@@ -63,7 +63,7 @@
 				657ED1352215D92F0088FF1B /* Status.swift */,
 				657ED1372216037E0088FF1B /* StatusMenuController.swift */,
 			);
-			path = TubZel;
+			path = MCUClient;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -105,7 +105,7 @@
 					};
 				};
 			};
-			buildConfigurationList = 657ED11F2215D4790088FF1B /* Build configuration list for PBXProject "TubZel" */;
+			buildConfigurationList = 657ED11F2215D4790088FF1B /* Build configuration list for PBXProject "MCUClient" */;
 			compatibilityVersion = "Xcode 9.3";
 			developmentRegion = en;
 			hasScannedForEncodings = 0;
@@ -282,12 +282,12 @@
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
 				DEVELOPMENT_TEAM = J7CHKBB62N;
-				INFOPLIST_FILE = TubZel/Info.plist;
+				INFOPLIST_FILE = "$(SRCROOT)/MCUClient/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/../Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.selfmade.TubZel;
+				PRODUCT_BUNDLE_IDENTIFIER = com.selfmade.MCUClient;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 4.2;
 			};
@@ -300,12 +300,12 @@
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
 				DEVELOPMENT_TEAM = J7CHKBB62N;
-				INFOPLIST_FILE = TubZel/Info.plist;
+				INFOPLIST_FILE = "$(SRCROOT)/MCUClient/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/../Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.selfmade.TubZel;
+				PRODUCT_BUNDLE_IDENTIFIER = com.selfmade.MCUClient;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 4.2;
 			};
@@ -314,7 +314,7 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		657ED11F2215D4790088FF1B /* Build configuration list for PBXProject "TubZel" */ = {
+		657ED11F2215D4790088FF1B /* Build configuration list for PBXProject "MCUClient" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				657ED1302215D47B0088FF1B /* Debug */,
