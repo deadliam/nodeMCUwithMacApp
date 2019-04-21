@@ -23,12 +23,12 @@ class StatusMenuController: NSObject {
     
     override init() {
         super.init()
-        Timer.scheduledTimer(timeInterval: 5.0, target: self, selector: #selector(updateStatus), userInfo: nil, repeats: true)
+        Timer.scheduledTimer(timeInterval: 1.0, target: self, selector: #selector(updateStatus), userInfo: nil, repeats: true)
     }
     
     let statusItem = NSStatusBar.system.statusItem(withLength: NSStatusItem.variableLength)
     
-    @objc func updateStatus() {
+    @objc func updateStatus() {        
         status.makeGetCall { success in
             DispatchQueue.main.async {
                 self.statusItem.button?.title = success == "true" ? door.Open.rawValue :  door.Closed.rawValue
