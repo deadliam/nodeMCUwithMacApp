@@ -66,7 +66,7 @@ def start_server():
         cl, addr = s.accept()
         print('client connected from', addr)
         
-        if x % 10 == 0:
+        if x % 5 == 0:
             distance = sensor.distance_cm()
             x = 0
 

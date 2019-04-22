@@ -35,14 +35,14 @@ class StatusAPI {
             (data, response, error) in
             // check for any errors
             guard error == nil else {
-                completion("false")
+                completion("noConnection")
                 print("error calling GET")
                 print(error!)
                 return
             }
             // make sure we got data    
             guard let responseData = data else {
-                completion("false")
+                completion("noConnection")
                 print("Error: did not receive data")
                 return
             }
@@ -50,14 +50,14 @@ class StatusAPI {
             do {
                 guard let status = try JSONSerialization.jsonObject(with: responseData, options: [])
                     as? [String: Any] else {
-                        completion("false")
+                        completion("noConnection")
                         print("error trying to convert data to JSON")
                         return
                 }
            
                 // final result
                 guard let isOpen = status["isOpen"] as? String else {
-                    completion("false")
+                    completion("noConnection")
                     print("Could not get isOpen key from JSON")
                     return
                 }

@@ -18,29 +18,38 @@ class StatusMenuController: NSObject {
     let status = StatusAPI()
     
     let isOpen = true
-
+    
     @IBOutlet weak var menu: NSMenu!
     
     override init() {
         super.init()
-        Timer.scheduledTimer(timeInterval: 1.0, target: self, selector: #selector(updateStatus), userInfo: nil, repeats: true)
+        Timer.scheduledTimer(timeInterval: 2.0, target: self, selector: #selector(updateStatus), userInfo: nil, repeats: true)
     }
     
     let statusItem = NSStatusBar.system.statusItem(withLength: NSStatusItem.variableLength)
     
-    @objc func updateStatus() {        
+    @IBAction func updateClicked(_ sender: NSMenuItem) {
+        updateStatus()
+    }
+    
+    @objc func updateStatus() {
+//        self.statusItem.button?.image = NSImage(named:NSImage.Name("statusIconOccupied"))
         status.makeGetCall { success in
             DispatchQueue.main.async {
-                self.statusItem.button?.title = success == "true" ? door.Open.rawValue :  door.Closed.rawValue
+                if success == "false" {
+                    self.statusItem.button?.image = NSImage(named:NSImage.Name("statusIconOccupied"))
+                }
+                if success == "true" {
+                    self.statusItem.button?.image = NSImage(named:NSImage.Name("statusIconFree"))
+                }
+                if success == "noConnection" {
+                    self.statusItem.button?.image = NSImage(named:NSImage.Name("statusIconBlackTheme"))
+                }
             }
         }
     }
     
     @IBAction func quitClicked(sender: NSMenuItem) {
         NSApplication.shared.terminate(self)
-    }
-    
-    @IBAction func updateClicked(_ sender: NSMenuItem) {
-        updateStatus()
     }
 }
