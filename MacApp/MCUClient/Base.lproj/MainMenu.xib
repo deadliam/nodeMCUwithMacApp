@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="14460.31" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES" customObjectInstantitationMethod="direct">
+<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="14490.70" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES" customObjectInstantitationMethod="direct">
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="14460.31"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="14490.70"/>
     </dependencies>
     <objects>
         <customObject id="-2" userLabel="File's Owner" customClass="NSApplication">
@@ -13,26 +13,6 @@
         <customObject id="-3" userLabel="Application" customClass="NSObject"/>
         <customObject id="Voe-Tx-rLC" customClass="AppDelegate" customModule="TubZel" customModuleProvider="target"/>
         <customObject id="YLy-65-1bz" customClass="NSFontManager"/>
-        <customObject id="Xcj-xD-p52" customClass="StatusMenuController" customModule="TubZel" customModuleProvider="target">
-            <connections>
-                <outlet property="menu" destination="P6o-EV-mhu" id="26v-UP-m8c"/>
-            </connections>
-        </customObject>
-        <menu id="P6o-EV-mhu">
-            <items>
-                <menuItem title="Quit" id="GSN-v7-Byx">
-                    <modifierMask key="keyEquivalentModifierMask"/>
-                    <connections>
-                        <action selector="quitClickedWithSender:" target="Xcj-xD-p52" id="nfr-IL-qZq"/>
-                    </connections>
-                </menuItem>
-                <menuItem title="Update" id="Gll-1n-vUZ">
-                    <modifierMask key="keyEquivalentModifierMask"/>
-                    <connections>
-                        <action selector="updateClicked:" target="Xcj-xD-p52" id="hln-o8-Anq"/>
-                    </connections>
-                </menuItem>
-            </items>
-        </menu>
+        <customObject id="Xcj-xD-p52" customClass="StatusMenuController" customModule="TubZel" customModuleProvider="target"/>
     </objects>
 </document>

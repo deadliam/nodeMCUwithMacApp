@@ -9,15 +9,43 @@ import Foundation
 
 class StatusAPI {
 
-    let baseURL = "http://192.168.31.116"
-//    let baseURL = "http://192.168.4.1"
-   
+    var baseURL: String? //"http://192.168.31.116"
+    var song: String?
+    
+    func readConfig() -> String {
+        let homeDirURL = FileManager.default.homeDirectoryForCurrentUser.path
+        let filePath = "\(homeDirURL)/tubzel.cfg"
+        let dict = readJSONFromFile(filePath: filePath) as? Dictionary<String, Any>
+        
+        let urlValue = dict?["ip"] as? String
+        baseURL = "http://\(urlValue!)"
+        song = dict?["song"] as? String
+        
+        if let song = song {
+            return song
+        }
+        return ""
+    }
+    
+    func readJSONFromFile(filePath: String) -> Any? {
+        var json: Any?
+        if FileManager.default.fileExists(atPath: filePath) {
+            do {
+                let fileUrl = URL(fileURLWithPath: filePath)
+                // Getting data from JSON file using the file URL
+                let data = try Data(contentsOf: fileUrl, options: .mappedIfSafe)
+                json = try? JSONSerialization.jsonObject(with: data)
+            } catch {
+                // Handle error here
+            }
+        }
+        return json
+    }
+    
     func makeGetCall(completion: @escaping (String) -> Void) {
 
-        let statusEndpoint = baseURL
-
         // Set up the URL request
-        guard let url = URL(string: statusEndpoint) else {
+        guard let baseURL = baseURL, let url = URL(string: baseURL) else {
             print("Error: cannot create URL")
             return
         }
@@ -70,6 +98,58 @@ class StatusAPI {
                 return
             }
         }
+        task.resume()
+    }
+    
+    func makePostRequest(song: String) {
+        guard let baseURL = baseURL, let urlBaseStr = URL(string: baseURL) else {
+            print("Error: cannot create URL")
+            return
+        }
+        let urlWithParams = "\(urlBaseStr)?song=\(song)"
+        let parameters = ["song": "starwars2"]
+        
+        //create the url with URL
+        let url = URL(string: urlWithParams)! //change the url
+        
+        //create the session object
+        let session = URLSession.shared
+        
+        //now create the URLRequest object using the url object
+        var request = URLRequest(url: url)
+        request.httpMethod = "POST" //set http method as POST
+        
+        do {
+            request.httpBody = try JSONSerialization.data(withJSONObject: parameters, options: .prettyPrinted) // pass dictionary to nsdata object and set it as request body
+        } catch let error {
+            print(error.localizedDescription)
+        }
+        
+        request.addValue("application/json", forHTTPHeaderField: "Content-Type")
+        request.addValue("application/json", forHTTPHeaderField: "Accept")
+        
+        //create dataTask using the session object to send data to the server
+        let task = session.dataTask(with: request as URLRequest, completionHandler: { data, response, error in
+            
+            guard error == nil else {
+                return
+            }
+            
+            guard let data = data else {
+                return
+            }
+            
+            do {
+                print("response from server")
+                //create json object from data
+//                if let json = try JSONSerialization.jsonObject(with: data, options: .mutableContainers) as? [String: Any] {
+//                    print(json)
+//                    // handle json...
+//                }
+            } catch let error {
+                print(error.localizedDescription)
+            }
+        })
         task.resume()
     }
 }
